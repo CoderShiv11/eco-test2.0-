@@ -1,0 +1,315 @@
+<!-- Cart Page HTML -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cart</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<style>
+/* Global Styles */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  color: #333;
+}
+
+hr {
+  margin: 20px 0;
+  width: 100%;
+}
+
+/* Cart Container */
+.cart-container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px 0;
+  width: 80%;
+  max-width: 800px;
+}
+
+#cart-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+#cart-table th, #cart-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+#cart-table th {
+  background-color: #f2f2f2;
+}
+
+.cart-img {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.quantity-input {
+  width: 50px;
+}
+
+.remove-btn {
+  background-color: #e74c3c;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+#cart-total {
+  margin-top: 20px;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Billing Container */
+.billing-container {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 20px 0;
+  width: 80%;
+  max-width: 800px;
+}
+
+#billing-form {
+  display: flex;
+  flex-direction: column;
+}
+
+#billing-form label {
+  margin: 10px 0 5px;
+}
+
+#billing-form input[type="text"],
+#billing-form input[type="email"] {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  width: 100%;
+  max-width: 400px;
+}
+
+#billing-form button {
+  background-color: #27ae60;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 20px;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+#billing-form button:hover {
+  background-color: #219150;
+}
+
+/* Payment Methods */
+#billing-form h3 {
+  margin-top: 30px;
+}
+
+#billing-form label {
+  display: flex;
+  align-items: center;
+}
+
+#billing-form input[type="radio"] {
+  margin-right: 10px;
+}
+
+
+</style>
+<body>
+  <div class="cart-container">
+    <h1>Your Cart</h1>
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Product</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+    <div id="cart-total">Total: ₹0.00</div>
+
+  </div>
+  <hr>
+  <!-- Billing Page -->
+  <div class="billing-container">
+    <h1>Billing Information</h1>
+    <form id="billing-form">
+      <label>Name</label><input type="text" id="name" required><br>
+      <label>Village</label><input type="text" id="village" required><br>
+      <label>City</label><input type="text" id="city" required><br>
+      <label>District</label><input type="text" id="dist" required><br>
+      <label>State</label><input type="text" id="state" required><br>
+      <label>Pincode</label><input type="text" id="pincode" required><br>
+      <label>Gmail</label><input type="email" id="gmail" required><br>
+      <br>
+      <hr>
+      <h3>Payment Method</h3>
+      <label>
+        <input type="radio" name="payment" value="cash" required> Cash on Delivery
+      </label><br>
+      <label>
+        <input type="radio" name="payment" value="netbanking" required> Net Banking
+      </label><br>
+      <label>
+        <input type="radio" name="payment" value="emi" required> EMI
+      </label><br>
+      <label>
+        <input type="radio" name="payment" value="upi" required> UPI
+      </label><br>
+      <label>
+        <input type="radio" name="payment" value="phonepay" required> Phone Pay
+      </label><br>
+      <label>
+        <input type="radio" name="payment" value="googlepay" required> Google Pay
+      </label><br>
+      
+      <button type="submit">Submit Order</button>
+    </form>
+  </div>
+
+  <script>
+    // Render cart items and update the total
+// Render the cart
+function renderCart() {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  const cartTableBody = document.querySelector('#cart-table tbody');
+  const cartTotalElement = document.getElementById('cart-total');
+
+  cartTableBody.innerHTML = ''; // Clear previous content
+  let totalAmount = 0;
+
+  cart.forEach((item, index) => {
+    const itemTotal = item.price * item.quantity;
+    totalAmount += itemTotal;
+
+    // Create a new table row for each item
+    const row = `
+      <tr>
+        <td><img src="${item.image}" alt="${item.name}" class="cart-img"></td>
+        <td>${item.name}</td>
+        <td>₹${item.price}</td>
+        <td>
+          <input type="number" min="1" value="${item.quantity}" 
+                 data-index="${index}" class="quantity-input">
+        </td>
+        <td>₹${itemTotal.toFixed(2)}</td>
+        <td>
+          <button data-index="${index}" class="remove-btn">Remove</button>
+        </td>
+      </tr>
+    `;
+    cartTableBody.insertAdjacentHTML('beforeend', row);
+  });
+
+  cartTotalElement.textContent = `Total: ₹${totalAmount.toFixed(2)}`;
+}
+
+// Update quantity in the cart
+function updateQuantity(index, newQuantity) {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart[index].quantity = newQuantity;
+  localStorage.setItem('cart', JSON.stringify(cart));
+  renderCart();
+}
+
+// Remove item from cart
+function removeItem(index) {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  cart.splice(index, 1); // Remove item from cart
+  localStorage.setItem('cart', JSON.stringify(cart));
+  renderCart();
+}
+
+// Event listeners for cart page actions
+document.addEventListener('DOMContentLoaded', () => {
+  renderCart();
+
+  // Update quantity when input field changes
+  document.querySelector('#cart-table').addEventListener('input', (e) => {
+    if (e.target.classList.contains('quantity-input')) {
+      const index = e.target.dataset.index;
+      const newQuantity = parseInt(e.target.value);
+      updateQuantity(index, newQuantity);
+    }
+  });
+
+  // Remove item when the remove button is clicked
+  document.querySelector('#cart-table').addEventListener('click', (e) => {
+    if (e.target.classList.contains('remove-btn')) {
+      const index = e.target.dataset.index;
+      removeItem(index);
+    }
+  });
+
+  // Checkout process
+  document.getElementById('checkout-btn').addEventListener('click', () => {
+    alert('Proceeding to checkout!');
+    localStorage.removeItem('cart'); // Clear the cart after checkout
+    setTimeout(() => {
+      window.location.href = 'billing.html'; // Redirect to billing page
+    }, 2000);
+  });
+});
+
+// Billing form submission
+document.getElementById('billing-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  
+  const name = document.getElementById('name').value;
+  const village = document.getElementById('village').value;
+  const city = document.getElementById('city').value;
+  const dist = document.getElementById('dist').value;
+  const state = document.getElementById('state').value;
+  const pincode = document.getElementById('pincode').value;
+  const gmail = document.getElementById('gmail').value;
+  const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
+
+  console.log('Billing Information:');
+  console.log('Name:', name);
+  console.log('Village:', village);
+  console.log('City:', city);
+  console.log('District:', dist);
+  console.log('State:', state);
+  console.log('Pincode:', pincode);
+  console.log('Email:', gmail);
+  console.log('Payment Method:', paymentMethod);
+
+  // Clear the cart from localStorage after placing the order
+  localStorage.removeItem('cart');
+
+  alert('Order placed successfully!');
+  window.location.href = 'index.html';  // Redirect to homepage after placing order
+});
+
+  </script>
+</body>
+</html>

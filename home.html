@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/styles.css">
+  <title>E-Commerce Website</title>
+  <style>
+    body {
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  color: #343a40;
+}
+
+header {
+  background-color: black;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+h1, h2 {
+  margin-bottom: 20px;
+}
+
+section {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #dee2e6;
+  border-radius: 5px;
+  background-color: #ffffff;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 15px;
+}
+
+#search-bar {
+  width: 60%;
+  padding: 12px 20px;
+  font-size: 16px;
+  border: 2px solid #ddd;
+  border-radius: 30px;
+  outline: none;
+  transition: all 0.3s ease;
+  background-color: #f9f9f9;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#search-bar:focus {
+  border-color: orangered;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+#search-bar::placeholder {
+  color: #aaa;
+  font-style: italic;
+}
+
+#suggestions {
+  position: absolute;
+  top: 105%; /* Better placement */
+  left: 50%;
+  transform: translateX(-50%);
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 60%;
+  max-height: 250px;
+  overflow-y: auto;
+  z-index: 1000;
+  display: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+#suggestions div {
+  padding: 12px 15px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #343a40;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+#suggestions div:last-child {
+  border-bottom: none;
+}
+
+#suggestions div:hover {
+  background-color: #f8f8f8;
+  color: orangered;
+}
+
+#suggestions div span.icon {
+  font-size: 18px;
+  color: orangered;
+  margin-right: 10px;
+}
+
+
+.product-group {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+
+.product {
+  flex: 1;
+  margin: 0 10px;
+  text-align: center;
+}
+
+.product img {
+  width: 150px;
+  height: 150px;
+  border-radius: 5px;
+}
+
+.product p {
+  margin: 10px 0;
+}
+
+.product:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+  background-color: #f9f9f9;
+}
+
+button.add-to-cart {
+  background-color: orangered;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+button.add-to-cart:hover {
+  background-color: orangered;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+  text-align: center;
+  margin: 20px 0;
+}
+
+footer a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: #343a40;
+  padding: 10px 20px;
+}
+
+nav a, nav button {
+  color: white;
+  text-decoration: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  border: none;
+  background-color: #343a40;
+  cursor: pointer;
+}
+
+/* Add this rule to shift the button to the right side */
+.cart-button {
+  margin-left: auto;
+}
+
+nav a:hover, nav button:hover {
+  background-color: orangered;
+  border-radius: 5px;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome To LOKA</h1>
+    <div class="search-container">
+      <input type="text" id="search-bar" placeholder="Search for products...">
+      <div id="suggestions" class="suggestions"></div>
+    </div>
+  </header>
+  <nav> 
+    <button class="cart-button" onclick="window.location.href='billing.html'">Go to Cart</button>
+  </nav>
+  <main>
+    <section>
+      <h2>Clothes</h2>
+      <div class="product-group">
+        <div class="product">
+          <img src="images/clothes/1.0.webp" alt="Product 1">
+          <p>Sweet Shirt - ₹499<br><hr>information about boy hoodys in one line
+            Boy hoodies are cozy, stylish sweatshirts designed for boys, often featuring hoods with drawstrings, and made from materials like fleece, cotton,<hr></p>
+          <button class="add-to-cart" data-name="Sweet Shirt" data-price="₹499">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/clothes/1.2.webp" alt="Product 2">
+          <p>Formal Shirt - ₹799<br><hr>Boy hoodies are versatile and perfect for casual wear, often coming in various colors and designs, featuring zippers or pullovers, and suitable for all seasons.<hr>
+          </p>
+          <button class="add-to-cart" data-name="Formal Shirt" data-price="₹890">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/clothes/1.3.webp" alt="Product 3">
+          <p>Hoddy - ₹699<br><hr>Boy hoodies offer warmth and comfort, often featuring fun graphics, logos, or pockets, making them a favorite for school, sports, and everyday adventures.<hr>
+          </p>
+          <button class="add-to-cart" data-name="Hoddy " data-price="₹699">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-group">
+        <div class="product">
+          <img src="images/clothes/2.1.webp" alt="Product 4">
+          <p>Dark Red Frock - ₹670<br><hr>Tie Shoulder Layered Ruched Cami Dress In dark red or easy to ware<hr>
+          </p>
+          <button class="add-to-cart" data-name="Dark Red Frock " data-price="₹670">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/clothes/2.2.webp" alt="Product 5">
+          <p>HoddyJacket - ₹599<br><hr>Contrast Collar Solid Drawstring Knotted Pocket Oversized Jacket In Apricot<hr>
+          </p>
+          <button class="add-to-cart" data-name="HoddyJacket " data-price="₹599">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/clothes/2.3.webp" alt="Product 6">
+          <p>Red Frock - ₹890<br><hr>Ruched Bust Lace Up Side Spaghetti Straps Cami Dress In Maroon<hr>
+          </p>
+          <button class="add-to-cart" data-name="Red Frock" data-price="890">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+    <hr>
+    <section>
+      <h2> Footwear</h2>
+      <div class="product-group">
+        <div class="product">
+          <img src="images/Accessories/1.jpg" alt="Accessory 1">
+          <p>Red Shoes - ₹499<br><hr>Bold and stylish, red shoes make a statement with every step.
+            best for running<hr></p>
+          <button class="add-to-cart" data-name="Red Shoes" data-price="₹499">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/Accessories/images (1).jpg" alt="Accessory 2">
+          <p>Lite Blue Shoes - ₹1200<br><hr>Elegant and versatile, blue shoes add a touch of sophistication to any outfit.<hr></p>
+          <button class="add-to-cart" data-name="Lite Blue Shoes" data-price="₹1200">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/Accessories/images (2).jpg" alt="Accessory 3">
+          <p>Dark Blue Shoes- ₹699<br><hr>Sophisticated and chic, dark blue shoes offer a timeless elegance perfect for any occasion.<hr></p>
+          <button class="add-to-cart" data-name="Dar Blue Shoes" data-price="₹699">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-group">
+        <div class="product">
+          <img src="images/Accessories/images (6).jpg" alt="Accessory 4">
+          <p>Red Sandel - ₹699<br><hr>Chic and fashionable, high heel girl sandals elevate your style with elegance and flair.<hr></p>
+          <button class="add-to-cart" data-name="Red Sandel" data-price="₹699">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/Accessories/images (7).jpg" alt="Accessory 5">
+          <p>Blue Lofer- ₹560<br><hr>Comfort meets style in these chic blue loafers, perfect for any casual outing.<hr></p>
+          <button class="add-to-cart" data-name="Blue Lofer" data-price="₹560">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/Accessories/images (9).jpg" alt="Accessory 6">
+          <p>Sendel(White)- ₹890<br><hr>Fresh and elegant, white sandals add a touch of purity and grace to your ensemble.<hr></p>
+          <button class="add-to-cart" data-name="Sendel(White)" data-price="₹890">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+    <hr>
+    <section>
+      <h2>Electronic Products</h2>
+      <div class="product-group">
+        <div class="product">
+          <img src="images/Electronic Products/download (1).jpg" alt="Gadget 1">
+          <p>Smart Watch(Dark Green) - ₹499<br><hr>"Innovative and functional, a smart watch keeps you connected and on track with style.<hr></p>
+          <button class="add-to-cart" data-name="Smart Watch(Dark Green)" data-price="₹499">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/Electronic Products/download.jpg" alt="Gadget 2">
+          <p>Headset(Black) - ₹399<br><hr>Sleek and modern, a black headset delivers high-quality sound with a stylish, understated look.<hr></p>
+          <button class="add-to-cart" data-name="Headset(Black)" data-price="₹399">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/Electronic Products/images (14).jpg" alt="Gadget 3">
+          <p>Headset- ₹699<br><hr>Smart watches combine cutting-edge technology with sleek design, keeping you connected and stylish on the go<hr></p>
+          <button class="add-to-cart" data-name="Headset" data-price="₹699">Add to Cart</button>
+        </div>
+      </div>
+      <div class="product-group">
+        <div class="product">
+          <img src="images/Electronic Products/images (15).jpg" alt="Gadget 4">
+          <p>Smart Watch(Black) - ₹599<br><hr>Compact and powerful, earbuds deliver crystal-clear sound and seamless wireless convenience.<hr></p>
+          <button class="add-to-cart" data-name="Smart Watch(Black)" data-price="₹599">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/Electronic Products/images (16).jpg" alt="Gadget 5">
+          <p>Earbuds(Black)- ₹570<br><hr>Experience immersive sound with compact and stylish earbuds, perfect for music on the go.<hr></p>
+          <button class="add-to-cart" data-name="Earbuds(Black)" data-price="₹570">Add to Cart</button>
+        </div>
+        <div class="product">
+          <img src="images/Electronic Products/images (17).jpg" alt="Gadget 6">
+          <p>Earbuds - ₹500<br><hr>Experience immersive sound with compact and stylish earbuds, perfect for music on the go.<hr></p>
+          <button class="add-to-cart" data-name="Earbuds " data-price="₹500">Add to Cart</button>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer>
+    <p>Company: LOKA</p> 
+    <p>Owner: SHAMBHURAJ (SK)</p>
+    <p>Developer: SB. LONDHE</p>
+    <p>Address: At. Shindewadi - Khunte, Tal- Phaltan, Dist- Satara, 415523</p>
+    <P>Email: lokapvtltd69@gmail.com</P>
+    <p>&copy; 2025 Loka. All rights reserved.</p>
+  </footer>
+  <script src="app.js"></script>
+</body>
+</html>
